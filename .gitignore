@@ -1,0 +1,71 @@
+# .NET build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosx
+*.userprefs
+
+# Auto-generated files
+*.suo
+*.sln.docstates
+*.nupkg
+*.snupkg
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.props
+*.targets
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Rider and Visual Studio for Mac
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Environment settings
+.env
+
+# Azure Web Apps
+*.deploy.cmd
+*.azurewebsites.net
+
+# Node modules (if using Node.js or npm in your project)
+node_modules/
+
+# Coverage results
+coverage/
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# File-based databases
+*.sqlite
+*.db
+
+# .NET Core
+*.dotnet
+*.dnceng
+*.dotnetcli/
+
+# Global tools
+*.dotnet-tools
+
+# Secrets files (if not using user secrets for local development)
+secrets.json
+

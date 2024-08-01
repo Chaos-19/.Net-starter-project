@@ -1,0 +1,44 @@
+@dot_net_first_project_HostAddress = https://localhost:5001
+
+GET {{dot_net_first_project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{dot_net_first_project_HostAddress}}/pizza/
+Accept: application/json
+
+###
+
+GET {{dot_net_first_project_HostAddress}}/pizza/1
+Accept: application/json
+
+###
+
+GET {{dot_net_first_project_HostAddress}}/pizza/5
+Accept: application/json
+
+###
+
+POST  {{dot_net_first_project_HostAddress}}/pizza
+Content-Type: application/json
+
+{
+    "name": "Hawaii",
+    "isGlutenFree": false
+}
+
+###
+
+PUT {{dot_net_first_project_HostAddress}}/pizza/3
+Content-Type: application/json
+
+{
+    "id": 3,
+    "name": "Hawaiian",
+    "isGlutenFree": false
+}
+
+###
+
+DELETE {{dot_net_first_project_HostAddress}}/pizza/2
