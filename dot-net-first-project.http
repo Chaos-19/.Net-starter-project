@@ -5,22 +5,22 @@ Accept: application/json
 
 ###
 
-GET {{dot_net_first_project_HostAddress}}/pizza/
+GET {{dot_net_first_project_HostAddress}}/api/pizza/
 Accept: application/json
 
 ###
 
-GET {{dot_net_first_project_HostAddress}}/pizza/1
+GET {{dot_net_first_project_HostAddress}}/api/pizza/1
 Accept: application/json
 
 ###
 
-GET {{dot_net_first_project_HostAddress}}/pizza/5
+GET {{dot_net_first_project_HostAddress}}/api/pizza/5
 Accept: application/json
 
-###
+### 
 
-POST  {{dot_net_first_project_HostAddress}}/pizza
+POST  {{dot_net_first_project_HostAddress}}/api/pizza
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ###
 
-PUT {{dot_net_first_project_HostAddress}}/pizza/3
+PUT {{dot_net_first_project_HostAddress}}/api/pizza/3
 Content-Type: application/json
 
 {
@@ -41,4 +41,4 @@ Content-Type: application/json
 
 ###
 
-DELETE {{dot_net_first_project_HostAddress}}/pizza/2
+DELETE {{dot_net_first_project_HostAddress}}/api/pizza/2

@@ -1,69 +1,49 @@
-using ContosoPizza.Models;
-using ContosoPizza.Services;
+using DotnetWebApiWithEFCodeFirst.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ContosoPizza.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class PizzaController : ControllerBase
+namespace DotnetWebApiWithEFCodeFirst.Controllers
 {
-    public PizzaController()
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PizzaController : ControllerBase
     {
-    }
+        private readonly SampleDBContext _context;
+        public PizzaController(SampleDBContext context)
+        {
+            _context = context;
+        }
 
-    // GET all action
-    [HttpGet]
-    public ActionResult<List<Pizza>> GetAll() => PizzaService.GetAll();
+        // GET: api/Pizz
+        [HttpGet]
+        public ActionResult<IEnumerable<Pizza>> GetPizzas()
+        {
+            return _context.Pizza.ToList();
+        }
 
-    // GET by Id action
-    [HttpGet("{id}")]
-    public ActionResult<Pizza> Get(int id)
-    {
-        var pizza = PizzaService.Get(id);
+        // GET: api/Pizza/1
+        [HttpGet("{id}")]
+        public ActionResult<Pizza> GetPizza(int id)
+        {
+            var pizza = _context.Pizza.Find(id);
+            if (pizza == null)
+            {
+                return NotFound();
+            }
+            return pizza;
+        }
 
-        if (pizza == null)
-            return NotFound();
-        return pizza;
-    }
-
-    // POST action
-    [HttpPost]
-    public IActionResult Create(Pizza pizza)
-    {
-        PizzaService.Add(pizza);
-
-        return CreatedAtAction(nameof(Get), new { id = pizza.Id }, pizza);
-    }
-
-    // PUT action
-    [HttpPut("{id}")]
-    public IActionResult Update(int id, Pizza pizza)
-    {
-        if (id != pizza.Id)
-            return BadRequest();
-
-
-        var existingPizza = PizzaService.Get(id);
-
-        if (existingPizza == null)
-            return NotFound();
-
-        PizzaService.Update(pizza);
-        return NoContent();
-    }
-
-    // DELETE action
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
-    {
-        var existingPizza = PizzaService.Get(id);
-
-        if (existingPizza is null)
-            return NotFound();
-
-        PizzaService.Delete(id);
-
-        return NoContent();
+        // POST: api/Pizza
+        [HttpPost]
+        public ActionResult<Pizza> CreatePizza(Pizza pizza)
+        {
+            if (pizza == null)
+            {
+                return BadRequest();
+            }
+            _context.Pizza.Add(pizza);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetPizza), new { id = pizza.Id }, pizza);
+        }
     }
 }
