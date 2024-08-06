@@ -24,8 +24,8 @@ POST  {{dot_net_first_project_HostAddress}}/api/pizza
 Content-Type: application/json
 
 {
-    "name": "Hawaii",
-    "isGlutenFree": false
+    "name": "new",
+    "isGlutenFree": true
 }
 
 ###
