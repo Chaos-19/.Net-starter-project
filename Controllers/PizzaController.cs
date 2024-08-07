@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using DotnetWebApiWithEFCodeFirst.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace DotnetWebApiWithEFCodeFirst.Controllers
     public class PizzaController : ControllerBase
     {
         private readonly SampleDBContext _context;
+
         public PizzaController(SampleDBContext context)
         {
             _context = context;
@@ -49,39 +51,48 @@ namespace DotnetWebApiWithEFCodeFirst.Controllers
 
         //PUT: api/Pizza
         [HttpPut("{id}")]
-        public ActionResult<Pizza> UpdatePizza(int id, Pizza pizza)
+        public IActionResult UpdatePizza(int id, Pizza pizza)
         {
-            Console.Write("In update Method.....");
-
-            if (pizza.Id != id)
+            try
             {
-                return BadRequest();
+                if (pizza.Id != id)
+                {
+                    return BadRequest();
+                }
+
+                var existingPizza = _context.Pizza.Find(id);
+
+                if (existingPizza == null)
+                    return NotFound();
+
+                // Attach the existing pizza to the context for tracking
+                _context.Pizza.Attach(existingPizza);
+
+                existingPizza.Name = pizza.Name;
+                existingPizza.IsGlutenFree = pizza.IsGlutenFree;
+
+                _context.SaveChanges();
+
+                return NoContent();
             }
-
-            var existingPizza = _context.Pizza.Find(id);
-
-            if (existingPizza == null)
-                return NotFound();
-
-            _context.Pizza.Update(pizza);
-            _context.SaveChanges();
-
-            return NoContent();
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Pizza> DeletePizza(int id)
+        public IActionResult DeletePizza(int id)
         {
             var pizza = _context.Pizza.Find(id);
-            
-            if(pizza == null)
-               return NotFound();
-            
+
+            if (pizza == null)
+                return NotFound();
+
             _context.Pizza.Remove(pizza);
             _context.SaveChanges();
 
             return NoContent();
-
         }
     }
 }

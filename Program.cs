@@ -16,10 +16,14 @@ namespace DotnetWebApiWithEFCodeFirst
             builder.Services.AddEndpointsApiExplorer();
 
             //This section below is for connection string
-        
+
             builder.Services.AddDbContext<SampleDBContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-            );
+            {
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")
+                );
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
 
             builder.Services.AddSwaggerGen();
 
